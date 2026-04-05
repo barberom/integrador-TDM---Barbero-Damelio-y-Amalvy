@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class Detalle extends Component{
+class DetalleP extends Component{
 
     constructor(props){
         super(props)
@@ -11,7 +11,7 @@ class Detalle extends Component{
     }
 
     componentDidMount(){
-        fetch({/* no se cual es la parte del link que tengo que parametrizar */} + this.state.id)
+        fetch(`https://api.themoviedb.org/3/movie/${this.state.id}?api_key=1a700a291cf896745821e2c04ca0ecaa`)
         .then((response)=>response.json())
         .then((data)=>{
             console.log(data)
@@ -29,10 +29,13 @@ class Detalle extends Component{
     return(
         <>
         {this.state.pelicula == [] ? <h1>Cargando...</h1>:<article>
-            <img src= {this.props.pelicula.poster_path}/> {/*Revisar el tema de la ruta porque no entiendo donde tengo que poner ese pedazo de ruta que me da la api */}
-            <h2>{this.props.pelicula.title}</h2>
-            <p>{this.props.pelicula.overview}</p>
-            {/* Eventuamente se puede agregar mas propiedades, como la fecha de lanzamiento, genero, etc */}
+            <img src= {`https://image.tmdb.org/t/p/w342/${this.state.pelicula.poster_path}`}/>
+            <h2>{this.state.pelicula.original_title}</h2>
+            <p>Rating: {this.state.pelicula.vote_average}</p>
+            <p>Fecha de estreno: {this.state.pelicula.release_date}</p>
+            <p>Duración: {this.state.pelicula.runtime}</p>
+            <p>Sinópsis: {this.state.pelicula.overview}</p>
+            <p>Género: {this.state.pelicula.genres[0].name}</p>
             <button>Favoritos</button>
 
             </article>}
@@ -40,4 +43,4 @@ class Detalle extends Component{
     )
     }
 }
-export default Detalle
+export default DetalleP

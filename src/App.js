@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar/Navbar"
 import NotFound from "./screens/NotFound/NotFound";
 import Login from "./screens/Login/Login";
 import Register from "./screens/Register/Register";
-import Detalle from "./screens/Detalle/Detalle";
+import DetalleP from "./screens/DetalleP/DetalleP";
 
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
             <Route path="/" exact={true} component={Home}/>
             <Route path="/Peliculas" component={Peliculas}/>
             <Route path="/Series" component={Series}/>
-            <Route path="/detalle/:id" component={Detalle}/>
+            <Route path="/detalleP/:id" component={DetalleP}/>
             <Route path="/Favoritos" component={Favoritos}/>
             <Route path="/Login" component={Login}/>
             <Route path="/Register" component={Register}/>
