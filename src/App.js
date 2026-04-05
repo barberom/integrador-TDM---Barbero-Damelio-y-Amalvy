@@ -4,10 +4,11 @@ import Peliculas from "./screens/Peliculas/Peliculas";
 import Series from "./screens/Series/Series";
 import Favoritos from "./screens/Favoritos/Favoritos";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "./components/Navbar/Navbar"
 import NotFound from "./screens/NotFound/NotFound";
 import Login from "./screens/Login/Login";
 import Register from "./screens/Register/Register";
+import Detalle from "./screens/Detalle/Detalle";
 
 
 function App() {
@@ -18,13 +19,14 @@ function App() {
             <Route path="/" exact={true} component={Home}/>
             <Route path="/Peliculas" component={Peliculas}/>
             <Route path="/Series" component={Series}/>
+            <Route path="/detalle/:id" component={Detalle}/>
             <Route path="/Favoritos" component={Favoritos}/>
-            <Route path="*" component={NotFound}/>
             <Route path="/Login" component={Login}/>
             <Route path="/Register" component={Register}/>
+            <Route path="*" component={NotFound}/>
           </Switch>
         <footer>
-          <p>Copyright © Dashboard 2022</p>
+          <p> Amalvy | Barbero | Damelio</p>
         </footer>
       </>
   );
