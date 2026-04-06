@@ -5,7 +5,7 @@ import PeliVerMas from "../../components/PeliVerMas/PeliVerMas";
 function Peliculas(){
     return(
         <>
-        <PeliVerMas/>
+            <PeliVerMas/>
         </>
     )
 }
