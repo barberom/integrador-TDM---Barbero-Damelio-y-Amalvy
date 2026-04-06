@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
-import "./Popular.css";
+import "../Popular/Popular.css";
 
-class Popular extends Component{
+class PopularSerie extends Component{
     constructor(props){
         super(props)
         this.state = {
@@ -32,12 +32,12 @@ class Popular extends Component{
     render(){
         return(
             <article className='popular'>
-                <img src= {`https://image.tmdb.org/t/p/w342/${this.props.pelicula.poster_path}`}/>
-                <h2>{this.props.pelicula.title}</h2>
-                <p className={this.state.clase}>{this.props.pelicula.overview}</p>
+                <img src= {`https://image.tmdb.org/t/p/w342/${this.props.serie.poster_path}`}/>
+                <h2>{this.props.serie.name}</h2>
+                <p className={this.state.clase}>{this.props.serie.overview}</p>
                 <div className="botones-home">
                     <button onClick={()=>this.verDescripcion()}>{this.state.detalle}</button>
-                    <Link to={`/detalleP/${this.props.pelicula.id}`}>Ir a detalle</Link>
+                    <Link to={`/detalleS/${this.props.serie.id}`}>Ir a detalle</Link>
                     <button>🩶</button>
                 </div>
             </article>
@@ -45,4 +45,4 @@ class Popular extends Component{
     }
 }
 
-export default Popular
+export default PopularSerie;
