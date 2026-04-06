@@ -7,6 +7,7 @@ class DetalleP extends Component{
         this.state = {
            id: props.match.params.id,
            pelicula: [], 
+           generos: []
         }
     }
 
@@ -16,7 +17,8 @@ class DetalleP extends Component{
         .then((data)=>{
             console.log(data)
             this.setState({
-                pelicula: data
+                pelicula: data,
+                generos: data.genres
             })
 
         })
@@ -35,7 +37,10 @@ class DetalleP extends Component{
             <p>Fecha de estreno: {this.state.pelicula.release_date}</p>
             <p>Duración: {this.state.pelicula.runtime}</p>
             <p>Sinópsis: {this.state.pelicula.overview}</p>
-            <p>Género: {this.state.pelicula.genres[0].name}</p>
+            <p>Géneros:</p>
+            <ul>
+                {this.state.generos.map((genero)=> <li>{genero.name}</li>)}  
+            </ul> 
             <button>Favoritos</button>
 
             </article>}
