@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Popular from "../Popular/Popular";
+import "./SPopular.css";
 
 
 class SPopular extends Component{
@@ -27,7 +28,7 @@ class SPopular extends Component{
     render(){
         return(
             <>
-                <section>
+                <section className='spopular'>
                     {this.state.peliculas == [] ? <h1>Cargando...</h1>: this.state.peliculas.map((pelicula, idx) => <Popular key = {(pelicula + idx)} pelicula={pelicula}/>)}
                 </section>
             </>
