@@ -29,7 +29,7 @@ class SPopular extends Component{
         return(
             <>
                 <section className='spopular'>
-                    {this.state.peliculas == [] ? <h1>Cargando...</h1>: this.state.peliculas.map((pelicula, idx) => <Popular key = {(pelicula + idx)} pelicula={pelicula}/>)}
+                    {this.state.peliculas == [] ? <h1>Cargando...</h1>: this.state.peliculas.map((pelicula, idx) => idx <= 3 ? <Popular key = {(pelicula + idx)} pelicula={pelicula}/>: null)}
                 </section>
             </>
         )
