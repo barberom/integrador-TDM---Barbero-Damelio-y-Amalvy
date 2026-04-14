@@ -11,13 +11,9 @@ ejecutarBusqueda(e){
     this.props.history.push("/Resultados/" + Buscador)
 }
 componentDidMount(){
-    
-}
-render(){
-    return (
 
-    )
 }
+
 
 }
 
@@ -43,5 +39,3 @@ render(){
 
 
 
-
-export default whithRouter Buscador
