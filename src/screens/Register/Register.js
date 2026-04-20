@@ -10,11 +10,7 @@ class Register extends Component {
         };
     }
 
-   cambiarUsername(event) {
-        this.setState({
-            usuario: event.target.value
-        });
-    }
+
 
     cambiarEmail(event) {
         this.setState({
@@ -22,28 +18,28 @@ class Register extends Component {
         });
     }
 
-    cambiarPassword(event) {
+    cambiarContraseña(event) {
         this.setState({
-            password: event.target.value
+            contraseña: event.target.value
         });}
 
     evitarSubmit(event) {
         event.preventDefault();
         const email = this.state.email;
-        const contraseña = this.state.password;
-        if (password.length < 6) {
+        const contraseña = this.state.contraseña;
+        if (contraseña.length < 6) {
             this.setState({ error: "La contraseña debe tener al menos 6 caracteres" });
         } else {
-            let usersStorage = localStorage.getItem("users");
-            let users = usersStorage ? JSON.parse(usersStorage) : [];
+            let usuariosStorage = localStorage.getItem("usuarios");
+            let usuarios = usuariosStorage ? JSON.parse(usuariosStorage) : [];
 
-            const existe = users.find(user => user.email === email);
+            const existe = usuarios.find(user => user.email === email);
 
             if (existe) {
                 this.setState({ error: "El email ya está en uso" });
             } else {
-                users.push({ email: email, contraseña: contraseña });
-                localStorage.setItem("users", JSON.stringify(users));
+                usuarios.push({ email: email, contraseña: contraseña });
+                localStorage.setItem("usuarios", JSON.stringify(usuarios));
                 this.props.history.push("/login");
             }
         }
@@ -56,13 +52,13 @@ class Register extends Component {
                 <input 
                     tipo="email" 
                     nombre="email" 
-                    onChange={(event) => this.controlarCambios(event)} 
+                    onChange={(event) => this.cambiarEmail(event)} 
                     valor={this.state.email} 
                 />
                 <input 
-                    tipo="password" 
-                    nombre="password" 
-                    onChange={(event) => this.controlarCambios(event)} 
+                    tipo="contraseña" 
+                    nombre="contraseña" 
+                    onChange={(event) => this.cambiarContraseña(event)} 
                     valor={this.state.contraseña} 
                 />
                 <button tipo="submit">Registrarme</button>
