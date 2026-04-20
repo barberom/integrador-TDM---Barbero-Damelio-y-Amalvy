@@ -56,7 +56,7 @@ class Login extends Component {
                     <div>
                         <label>Email:</label>
                         <input 
-                            tipo="email" 
+                            type="email" 
                             onChange={(event) => this.cambiarEmail(event)} 
                             value={this.state.email} 
                         />
@@ -64,12 +64,12 @@ class Login extends Component {
                     <div>
                         <label>Contraseña:</label>
                         <input 
-                            tipo="contraseña" 
+                            type="password" 
                             onChange={(event) => this.cambiarContraseña(event)} 
                             value={this.state.contraseña} 
                         />
                     </div>
-                    <button tipo="submit">Enviar</button>
+                    <button type="submit">Enviar</button>
                 </form>
             </section>
         );

@@ -16,7 +16,8 @@ import ResultadosBusqueda from "./screens/ResultadosBusqueda/ResultadosBusqueda"
 function App() {
   return (
       <>
-        <Navbar/>
+      <BrowserRouter>
+      <Navbar/>
           <Switch>
             <Route path="/" exact={true} component={Home}/>
             <Route path="/Peliculas" component={Peliculas}/>
@@ -29,6 +30,7 @@ function App() {
             <Route path="/Resultados/:tipo/:valor" component={ResultadosBusqueda}/>
             <Route path="*" component={NotFound}/>
           </Switch>
+          </BrowserRouter>
         <footer>
           <p> Amalvy | Barbero | Damelio</p>
         </footer>

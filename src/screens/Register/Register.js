@@ -50,18 +50,18 @@ class Register extends Component {
             <form onSubmit={(event) => this.evitarSubmit(event)}>
                 <h2>Crear Cuenta</h2>
                 <input 
-                    tipo="email" 
-                    nombre="email" 
+                    type="email" 
+                    name="email" 
                     onChange={(event) => this.cambiarEmail(event)} 
-                    valor={this.state.email} 
+                    value={this.state.email} 
                 />
                 <input 
-                    tipo="contraseña" 
-                    nombre="contraseña" 
+                    type="password" 
+                    name="contraseña" 
                     onChange={(event) => this.cambiarContraseña(event)} 
-                    valor={this.state.contraseña} 
+                    value={this.state.contraseña} 
                 />
-                <button tipo="submit">Registrarme</button>
+                <button type="submit">Registrarme</button>
             </form>
         );
     }
