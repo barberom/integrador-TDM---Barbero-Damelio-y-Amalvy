@@ -5,6 +5,8 @@ class ResultadoBusqueda extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            tipo: this.props.match.params.tipo,
+            valor: this.props.match.params.valor,
             resultados: [], 
             cargando: true,
             mostrarFavoritos: false
@@ -12,9 +14,9 @@ class ResultadoBusqueda extends Component {
     }
 
     componentDidMount() {
-        const { tipo, query } = this.props.match.params;
+
         const apiKey = "6aad86ecf8fd94ac9b44f0afc185ea99";
-        fetch(`https://api.themoviedb.org/3/search/${tipo}?api_key=${apiKey}&query=${query}`)
+        fetch(`https://api.themoviedb.org/3/search/${this.state.tipo}?api_key=${apiKey}&query=${this.state.valor}`)
             .then(res => res.json())
             .then(data => {
                 this.setState({ 
