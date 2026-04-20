@@ -1,32 +1,54 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
 
-class Formulario extends Component{
-constructor (props) {
-super(props)
-this.state = {
-valor:"",
-tipo: "peliculas"}}
+class Formulario extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            valor: "",
+            tipo: "movie"
+        };
+    }
 
-evitarsubmit(event) {event.preventDefault();this.props.history.push(`/Resultados/${this.state.tipo}/${this.state.valor}`);}
+    cambiarTipo(event) {
+        this.setState({
+            tipo: event.target.value
+        });
+    }
 
-controlarCambios(event){this.setState ({valor: event.target.value});()=>console.log(this.state.setState)
-}
+    controlarCambios(event) {
+        this.setState({
+            valor: event.target.value
+        });
+    }
 
-render(){
+    evitarsubmit(event) {
+        event.preventDefault();
+        if (this.state.valor !== "") {
+            this.props.history.push(`/Resultados/${this.state.tipo}/${this.state.valor}`);
+        }
+    }
 
-return (
-<form onSubmit={(event)=>this.evitarsubmit(event)}>
-<label>Name:</label>
-<input type= "Text" onChange={(event)=>this.controlarCambios(event)} value={this.state.valor}/>
-<input type = "submit" value = "submit"/>
-<select onChange={(event)=>this.cambiarTipo(event)}value={this.state.tipo}>
-<option value="peliculas">Películas</option>
-<option value="series">Series</option>
-</select>
-</form>
-)
-}
+    render() {
+        return (
+            <form onSubmit={(event) => this.evitarsubmit(event)}>
+                <label>Buscar:</label>
+                <input 
+                    type="text" 
+                    onChange={(event) => this.controlarCambios(event)} 
+                    value={this.state.valor} 
+                />
+                <select 
+                    onChange={(event) => this.cambiarTipo(event)} 
+                    value={this.state.tipo}
+                >
+                    <option value="movie">Películas</option>
+                    <option value="tv">Series</option>
+                </select>
+                <button type="submit">Buscar</button>
+            </form>
+        );
+    }
 }
 
 export default withRouter(Formulario);
