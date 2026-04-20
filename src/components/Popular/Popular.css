@@ -49,3 +49,10 @@
         padding: 5px 10px;
         color: white;
     }
+
+button.s{
+display: block;
+}
+button.h{
+    display: none;
+}

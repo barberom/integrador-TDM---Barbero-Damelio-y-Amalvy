@@ -9,6 +9,21 @@ class Popular extends Component{
             descripcion: "mostrar",
             clase: "hide",
             detalle: "Ver más",
+            estadoinv: 's',
+            estado2: 'h',
+            esFavorito: false,
+        }
+    }
+
+    componentDidMount(){
+        let storage = localStorage.getItem('favoritos');
+        let storageParse = JSON.parse(storage);
+        if (storageParse && storageParse.includes(this.props.pelicula.id)) {
+            this.setState({
+                estado2: 's',
+                estadoinv: 'h',
+                esFavorito: true,
+            })
         }
     }
 
@@ -29,6 +44,40 @@ class Popular extends Component{
         }
     }
 
+    agregarFav(){
+        let storage = localStorage.getItem('favoritos');
+        let storageParse = JSON.parse(storage);
+        if (storageParse && this.state.esFavorito === false) {
+            storageParse.push([this.props.pelicula.id, ""]);
+            localStorage.setItem('favoritos', JSON.stringify(storageParse));
+        }
+        else {
+            localStorage.setItem('favoritos', JSON.stringify([this.props.pelicula.id]));
+        }
+        this.setState({
+            estado2: 's',
+            estadoinv: 'h',
+            esFavorito: true,
+        })
+        {console.log(localStorage)}
+    }
+
+    sacarFav(){
+        this.setState({
+            estado2: 'h',
+            estadoinv: 's',
+            esFavorito: false,
+        })
+        let storage = localStorage.getItem('favoritos');
+        let storageParse = JSON.parse(storage);
+        let filtro = storageParse.filter((e) => e != this.props.pelicula.id);
+        localStorage.setItem('favoritos', JSON.stringify(filtro));
+        {console.log(localStorage)}
+    }
+
+
+    
+
     render(){
         return(
             <article className='popular'>
@@ -38,7 +87,8 @@ class Popular extends Component{
                 <div className="botones-home">
                     <button onClick={()=>this.verDescripcion()}>{this.state.detalle}</button>
                     <Link to={`/detalleP/${this.props.pelicula.id}`}>Ir a detalle</Link>
-                    <button>🩶</button>
+                    <button className={this.state.estadoinv} onClick={() => this.agregarFav()}>🩶</button>
+                    <button className={this.state.estado2} onClick={() => this.sacarFav()}>❤️</button>
                 </div>
             </article>
         )

@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import "../Popular/Popular.css";
+import "./PopularSerie.css";
 
 class PopularSerie extends Component{
     constructor(props){
