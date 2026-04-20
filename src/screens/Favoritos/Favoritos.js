@@ -6,7 +6,7 @@ class Favoritos extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            personajesRecuperados: [],
+            recuperado: [],
             loading: true,
         }
     }
@@ -14,55 +14,89 @@ class Favoritos extends Component {
     componentDidMount() {
         let storage = localStorage.getItem('favoritos');
         let array = [];
+
         if (storage) {
             array = JSON.parse(storage);
         }
 
         let resultadosTemp = [];
-        array.map(id => {
-            fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=1a700a291cf896745821e2c04ca0ecaa`)
+
+        if (array.length === 0) {
+            this.setState({ loading: false });
+        }
+
+        array.map(({ id, tipo }) => {
+            fetch(`https://api.themoviedb.org/3/${tipo}/${id}?api_key=1a700a291cf896745821e2c04ca0ecaa`)
                 .then((response) => response.json())
                 .then((data) => {
-                    resultadosTemp = resultadosTemp.concat(data);
-                    this.setState({
-                        personajesRecuperados: resultadosTemp,
-                    })
+
+                    let objetoFinal = data;
+
+                    resultadosTemp.push(objetoFinal);
+
+                    if (resultadosTemp.length === array.length) {
+                        this.setState({
+                            recuperado: resultadosTemp,
+                            loading: false,
+                        });
+                    }
                 })
                 .catch((error) => console.log(error));
-
-                this.setState({ loading: false });
-        })
-    
-        
-            
-        
-
+        });
     }
 
+    eliminarDeFavoritos = (idParaEliminar) => {
+        let nuevosFavoritos = this.state.recuperado.filter(
+            (objeto) => objeto.id !== idParaEliminar
+        );
+
+        this.setState({
+            recuperado: nuevosFavoritos,
+        });
+
+        let storage = localStorage.getItem('favoritos');
+        if (storage) {
+            let arrayStorage = JSON.parse(storage);
+            let nuevoStorage = arrayStorage.filter((item) => item.id !== idParaEliminar);
+            localStorage.setItem('favoritos', JSON.stringify(nuevoStorage));
+        }
+    }
 
     render() {
         return (
             <>
                 <h2>Favoritos</h2>
 
-                {this.state.loading ?
-                    <p>Cargando...</p> :
-                    this.state.personajesRecuperados.map((objeto,idx) => <CardRM 
-                        key={objeto.name + idx}
-                        id={objeto.id}
-                        imagen={objeto.image} 
-                        nombre={objeto.name} 
-                        estado={objeto.status}
-                        especie={objeto.species}
-                        /*ver mas*/
-                        origen={objeto.origin.name}
-                        /*borrar*/
-                        borrarPersonaje={() => this.borrarPersonaje(objeto.id)}
-                    />)
-                }  
+                {this.state.loading ? (
+                    <p>Cargando...</p>
+                ) : this.state.recuperado.length === 0 ? (
+                    <p>No hay favoritos</p>
+                ) : (
+                    this.state.recuperado.map((objeto, idx) => {
+
+                        if (objeto.tipo === "tv") {
+                            return (
+                                <PopularSerie
+                                    key={objeto.id}
+                                    serie={objeto}
+                                    eliminarDeFavoritos={this.eliminarDeFavoritos}
+                                />
+                            );
+                        } else {
+                            return (
+                                <Popular
+                                    key={objeto.id}
+                                    pelicula={objeto}
+                                    eliminarDeFavoritos={this.eliminarDeFavoritos}
+                                />
+                            );
+                        }
+
+                    })
+                )}
             </>
         )
     }
-
 }
+
 export default Favoritos;

@@ -75,10 +75,14 @@ class PopularSerie extends Component{
         })
         let storage = localStorage.getItem('favoritos');
         let storageParse = JSON.parse(storage);
-        if (storageParse.length != 0) {
+        if (storageParse && storageParse.length != 0) {
             let filtro = storageParse.filter((e) => e.id !== this.props.serie.id);
             localStorage.setItem('favoritos', JSON.stringify(filtro));
             {console.log(localStorage)}
+        }
+
+        if (this.props.eliminarDeFavoritos) {
+            this.props.eliminarDeFavoritos(this.props.serie.id);
         }
 
     }
