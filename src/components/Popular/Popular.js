@@ -18,7 +18,12 @@ class Popular extends Component{
     componentDidMount(){
         let storage = localStorage.getItem('favoritos');
         let storageParse = JSON.parse(storage);
-        if (storageParse && storageParse.includes(this.props.pelicula.id)) {
+        let filtro = [];
+        if ( storageParse && storageParse.length > 0){
+            filtro = storageParse.filter((e) => e.id === this.props.pelicula.id);
+        }
+
+        if (filtro.length > 0) {
             this.setState({
                 estado2: 's',
                 estadoinv: 'h',
@@ -48,11 +53,11 @@ class Popular extends Component{
         let storage = localStorage.getItem('favoritos');
         let storageParse = JSON.parse(storage);
         if (storageParse && this.state.esFavorito === false) {
-            storageParse.push([this.props.pelicula.id, ""]);
+            storageParse.push({"id": this.props.pelicula.id, "tipo": "movie"});
             localStorage.setItem('favoritos', JSON.stringify(storageParse));
         }
         else {
-            localStorage.setItem('favoritos', JSON.stringify([this.props.pelicula.id]));
+            localStorage.setItem('favoritos', JSON.stringify([{"id": this.props.pelicula.id, "tipo": "movie"}]));
         }
         this.setState({
             estado2: 's',
@@ -70,9 +75,12 @@ class Popular extends Component{
         })
         let storage = localStorage.getItem('favoritos');
         let storageParse = JSON.parse(storage);
-        let filtro = storageParse.filter((e) => e != this.props.pelicula.id);
-        localStorage.setItem('favoritos', JSON.stringify(filtro));
-        {console.log(localStorage)}
+        if (storageParse.length != 0) {
+            let filtro = storageParse.filter((e) => e.id !== this.props.pelicula.id);
+            localStorage.setItem('favoritos', JSON.stringify(filtro));
+            {console.log(localStorage)}
+        }
+
     }
 
 

@@ -20,7 +20,7 @@ class Favoritos extends Component {
 
         let resultadosTemp = [];
         array.map(id => {
-            fetch(`https://rickandmortyapi.com/api/character/${id}`)
+            fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=1a700a291cf896745821e2c04ca0ecaa`)
                 .then((response) => response.json())
                 .then((data) => {
                     resultadosTemp = resultadosTemp.concat(data);
