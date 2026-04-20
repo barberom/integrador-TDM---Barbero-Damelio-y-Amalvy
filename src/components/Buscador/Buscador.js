@@ -1,59 +1,31 @@
 import { Component } from "react";
 
-class ResultadoBusqueda extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
+class Formulario extends Component{
+constructor (props) {
+super(props)
+this.state = {
+valor:"",
+tipo: "peliculas"}}
 
-    componentDidMount() {
-        // 1. Obtener parámetros de la URL (asumiendo que usas /Resultados/:tipo/:query)
-        const { tipo, query } = this.props.match.params;
-        const apiKey = "6aad86ecf8fd94ac9b44f0afc185ea99";
-        
-        // 2. Definir la URL de la API según el tipo
-        const url = `https://api.themoviedb.org/3/search/${tipo}?api_key=${apiKey}&query=${query}`;
+evitarsubmit(event) {event.preventDefault();this.props.history.push(`/Resultados/${this.state.tipo}/${this.state.valor}`);}
 
-        fetch(url)
-            .then(res => res.json())
-            .then(data => this.setState({ 
-                resultados: data.results, 
-                cargando: false 
-            }))
-            .catch(err => console.log(err));
-
-        // 3. Verificar si existe la cookie de sesión para mostrar favoritos
-        // Suponiendo que tu cookie se llama "userSession"
-        if (document.cookie.includes("userSession")) {
-            this.setState({ esFavoritoVisible: true });
-        }
-    }
-
-    render() {
-        return (
-            <section>
-                <h2>Resultados de búsqueda:</h2>
-                {this.state.cargando ? <p>Cargando...</p> : (
-                    <div className="card-container">
-                        {this.state.resultados.length > 0 ? (
-                            this.state.resultados.map(item => (
-                                <article key={item.id} className="card">
-                                    <img src={`https://image.tmdb.org/t/p/w200${item.poster_path}`} alt={item.title || item.name} />
-                                    <h3>{item.title || item.name}</h3>
-                                    
-                                    {/* Lógica de la consigna: Botón solo si hay cookie */}
-                                    {this.state.esFavoritoVisible && (
-                                        <button>Añadir a Favoritos</button>
-                                    )}
-                                </article>
-                            ))
-                        ) : <p>No se encontraron resultados.</p>}
-                    </div>
-                )}
-            </section>
-        );
-    }
+controlarCambios(event){this.setState ({valor: event.target.value});()=>console.log(this.state.setState)
 }
 
-export default ResultadoBusqueda;
+render(){
+
+return (
+<form onSubmit={(event)=>this.evitarsubmit(event)}>
+<label>Name:</label>
+<input type= "Text" onChange={(event)=>this.controlarCambios(event)} value={this.state.valor}/>
+<input type = "submit" value = "submit"/>
+<select onChange={(event)=>this.cambiarTipo(event)}value={this.state.tipo}>
+<option value="peliculas">Películas</option>
+<option value="series">Series</option>
+</select>
+</form>
+)
+}
+}
+
+export default withRouter(Formulario);

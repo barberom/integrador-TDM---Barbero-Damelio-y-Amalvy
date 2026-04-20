@@ -26,7 +26,7 @@ class DetalleP extends Component{
             .catch(err => console.log(err));
 
         }
-    }
+    
 
     render(){
     return(
@@ -49,4 +49,5 @@ class DetalleP extends Component{
     )
     }
 }
+
 export default DetalleP
