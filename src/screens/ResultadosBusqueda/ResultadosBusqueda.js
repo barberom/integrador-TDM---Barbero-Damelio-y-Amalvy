@@ -9,7 +9,7 @@ class ResultadoBusqueda extends Component {
 
 
     componentDidMount() {
-        const { tipo, query } = this.props.match.params;
+        const { tipo, query } = this.props.match.params
         const apiKey = "6aad86ecf8fd94ac9b44f0afc185ea99";
         fetch(`https://api.themoviedb.org/3/search/${tipo}?api_key=${apiKey}&query=${query}`)
             .then(res => res.json())
