@@ -5,21 +5,32 @@ class Register extends Component {
         super(props);
         this.state = {
             email: "",
-            password: "",
+            contraseña: "",
             error: ""
         };
     }
 
-    controlarCambios(event) {
+   cambiarUsername(event) {
         this.setState({
-            [event.target.name]: event.target.value
+            usuario: event.target.value
         });
     }
+
+    cambiarEmail(event) {
+        this.setState({
+            email: event.target.value
+        });
+    }
+
+    cambiarPassword(event) {
+        this.setState({
+            password: event.target.value
+        });}
 
     evitarSubmit(event) {
         event.preventDefault();
         const email = this.state.email;
-        const password = this.state.password;
+        const contraseña = this.state.password;
         if (password.length < 6) {
             this.setState({ error: "La contraseña debe tener al menos 6 caracteres" });
         } else {
@@ -31,7 +42,7 @@ class Register extends Component {
             if (existe) {
                 this.setState({ error: "El email ya está en uso" });
             } else {
-                users.push({ email: email, password: password });
+                users.push({ email: email, contraseña: contraseña });
                 localStorage.setItem("users", JSON.stringify(users));
                 this.props.history.push("/login");
             }
@@ -43,19 +54,18 @@ class Register extends Component {
             <form onSubmit={(event) => this.evitarSubmit(event)}>
                 <h2>Crear Cuenta</h2>
                 <input 
-                    type="email" 
-                    name="email" 
-                    onChange={(e) => this.controlarCambios(e)} 
-                    value={this.state.email} 
+                    tipo="email" 
+                    nombre="email" 
+                    onChange={(event) => this.controlarCambios(event)} 
+                    valor={this.state.email} 
                 />
                 <input 
-                    type="password" 
-                    name="password" 
-                    onChange={(e) => this.controlarCambios(e)} 
-                    value={this.state.password} 
+                    tipo="password" 
+                    nombre="password" 
+                    onChange={(event) => this.controlarCambios(event)} 
+                    valor={this.state.contraseña} 
                 />
-                <button type="submit">Registrarme</button>
-                {this.state.error && <p>{this.state.error}</p>}
+                <button tipo="submit">Registrarme</button>
             </form>
         );
     }
