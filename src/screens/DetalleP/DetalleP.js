@@ -12,21 +12,22 @@ class DetalleP extends Component{
     }
 
     componentDidMount(){
-        fetch(`https://api.themoviedb.org/3/movie/${this.state.id}?api_key=1a700a291cf896745821e2c04ca0ecaa`)
-        .then((response)=>response.json())
-        .then((data)=>{
-            console.log(data)
-            this.setState({
-                pelicula: data,
-                generos: data.genres
+        const { tipo, query } = this.props.match.params;
+        const apiKey = "6aad86ecf8fd94ac9b44f0afc185ea99";
+        
+        fetch(`https://api.themoviedb.org/3/search/${tipo}?api_key=${apiKey}&query=${query}`)
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ 
+                    resultados: data.results, 
+                    cargando: false 
+                });
             })
+            .catch(err => console.log(err));
 
-        })
-        .catch((error) =>{
-            console.log(error)
-            
-        }) 
+        }
     }
+
     render(){
     return(
         <>
