@@ -91,7 +91,7 @@ class DetalleP extends Component{
     render(){
     return(
         <>
-        {this.state.pelicula.id === undefined ? <h1>Cargando...</h1>:<article>
+        {this.state.pelicula.id === undefined ? <h1>Cargando...</h1>:<article className="detalle">
             <img src= {`https://image.tmdb.org/t/p/w342/${this.state.pelicula.poster_path}`}/>
             <h2>{this.state.pelicula.original_title}</h2>
             <p>Rating: {this.state.pelicula.vote_average}</p>
