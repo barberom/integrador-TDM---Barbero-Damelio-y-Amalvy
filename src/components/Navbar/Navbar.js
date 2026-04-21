@@ -20,27 +20,27 @@ class Navbar extends Component {
         const estaLogueado = cookies.get("usuariosSession");
 
         return (
-            <nav>
-                <ul className="navbar">
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/Peliculas">Peliculas</Link></li>
-                    <li><Link to="/Series">Series</Link></li>
-                    <li><Link to="/Favoritos">Favoritos</Link></li>
+            <nav className="nav">
+                <ul className="nav nav-tabs my-4">
+                    <li className="nav-item"><Link className="nav-a nav-link" to="/">Home</Link></li>
+                    <li className="nav-item"><Link className="nav-link" to="/Peliculas">Peliculas</Link></li>
+                    <li className="nav-item"><Link className="nav-link" to="/Series">Series</Link></li>
+                    <li className="nav-item"><Link className="nav-link" to="/Favoritos">Favoritos</Link></li>
                 </ul>
 
                 <ul className="acceso">
                     {estaLogueado === undefined ? (
                         <>
-                            <li><Link to="/Login">Login</Link></li>
-                            <li><Link to="/Register">Register</Link></li>
+                            <li><Link className="nav-link" to="/Login">Login</Link></li>
+                            <li><Link className="nav-link" to="/Register">Register</Link></li>
                         </>
                     ) : (
                         <>
-                            <li style={{color: "white"}}>
+                            <li>
                                 {cookies.get("auth-usuario")}
                             </li>
                             <li>
-                                <button onClick={() => this.manejadorLogout()}>
+                                <button className="btn btn-secondary" onClick={() => this.manejadorLogout()}>
                                     Cerrar Sesión
                                 </button>
                             </li>

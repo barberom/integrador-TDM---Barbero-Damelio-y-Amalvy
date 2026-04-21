@@ -73,16 +73,19 @@ class Favoritos extends Component {
                     <p>No hay favoritos</p>
                 ) : (
                     this.state.recuperado.map((objeto, idx) => {
-
-                        if (objeto.tipo === "tv") {
+                        
+                        if (objeto.seasons) {
+                            console.log("chupame el pito nahue")
                             return (
                                 <PopularSerie
                                     key={objeto.id}
                                     serie={objeto}
                                     eliminarDeFavoritos={this.eliminarDeFavoritos}
                                 />
+                            
                             );
                         } else {
+                            console.log(objeto)
                             return (
                                 <Popular
                                     key={objeto.id}
