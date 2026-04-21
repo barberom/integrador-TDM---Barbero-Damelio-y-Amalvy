@@ -25,12 +25,12 @@ class Navbar extends Component {
                     <li className="nav-item"><Link className="nav-a nav-link" to="/">Home</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="/Peliculas">Peliculas</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="/Series">Series</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="/Favoritos">Favoritos</Link></li>
                 </ul>
 
                 <ul className="acceso">
                     {estaLogueado === undefined ? (
                         <>
+                            <li className="nav-item"><Link className="nav-link" to="/Favoritos">Favoritos</Link></li>
                             <li><Link className="nav-link" to="/Login">Login</Link></li>
                             <li><Link className="nav-link" to="/Register">Register</Link></li>
                         </>

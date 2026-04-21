@@ -87,7 +87,7 @@ class DetalleS extends Component{
     render(){
     return(
         <>
-        {this.state.serie == [] ? <h1>Cargando...</h1>:<article>
+        {this.state.serie == [] ? <h1>Cargando...</h1>:<article className="detalle">
             <img src= {`https://image.tmdb.org/t/p/w342/${this.state.serie.poster_path}`}/>
             <h2>{this.state.serie.original_name}</h2>
             <p>Rating: {this.state.serie.vote_average}</p>
