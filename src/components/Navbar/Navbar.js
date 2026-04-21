@@ -25,7 +25,6 @@ class Navbar extends Component {
                     <li className="nav-item"><Link className="nav-a nav-link" to="/">Home</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="/Peliculas">Peliculas</Link></li>
                     <li className="nav-item"><Link className="nav-link" to="/Series">Series</Link></li>
-                    <li className="nav-item"><Link className="nav-link" to="/Favoritos">Favoritos</Link></li>
                 </ul>
 
                 <ul className="acceso">
@@ -36,6 +35,7 @@ class Navbar extends Component {
                         </>
                     ) : (
                         <>
+                            <li className="nav-item"><Link className="nav-link" to="/Favoritos">Favoritos</Link></li>
                             <li>
                                 {cookies.get("auth-usuario")}
                             </li>

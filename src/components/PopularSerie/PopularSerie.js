@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
+import Cookies from "universal-cookie";
 import "./PopularSerie.css";
-
+const cookies = new Cookies()
 class PopularSerie extends Component{
     constructor(props){
         super(props)
@@ -9,7 +10,7 @@ class PopularSerie extends Component{
             descripcion: "mostrar",
             clase: "hide",
             detalle: "Ver más",
-            estadoinv: 's',
+            estadoinv: 'h',
             estado2: 'h',
             esFavorito: false,
         }
@@ -30,6 +31,8 @@ class PopularSerie extends Component{
                 esFavorito: true,
             })
         }
+        cookies.get('auth-usuario') ? this.setState({estadoinv: 's'}) : null
+        this.props.fav === 'si'?  this.setState({estadoinv: 'h'}): null
     }
 
     verDescripcion(){

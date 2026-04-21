@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import Cookies from "universal-cookie";
+const cookies = new Cookies()
 
 class DetalleP extends Component{
 
@@ -8,7 +10,7 @@ class DetalleP extends Component{
            id: props.match.params.id,
            pelicula: [], 
            generos: [],
-           estadoinv: 's',
+           estadoinv: 'h',
            estado2: 'h',
            esFavorito: false,
         }
@@ -44,7 +46,7 @@ class DetalleP extends Component{
             console.log(error)
             
         }) 
-        
+        cookies.get('auth-usuario') ? this.setState({estadoinv: 's'}) : null
     }
 
     agregarFav(){
@@ -91,7 +93,7 @@ class DetalleP extends Component{
     render(){
     return(
         <>
-        {this.state.pelicula.id === undefined ? <h1>Cargando...</h1>:<article>
+        {this.state.pelicula.id === undefined ? <h1>Cargando...</h1>:<article className="detalle">
             <img src= {`https://image.tmdb.org/t/p/w342/${this.state.pelicula.poster_path}`}/>
             <h2>{this.state.pelicula.original_title}</h2>
             <p>Rating: {this.state.pelicula.vote_average}</p>

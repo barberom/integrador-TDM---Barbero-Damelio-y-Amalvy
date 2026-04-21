@@ -179,10 +179,12 @@ section:nth-of-type(2) h2 {
   border-radius: 6px;
 }
 
-.sRegister{
-  
+.detalle{
+  padding: 1%;
 }
-
+.detalle h2{
+  margin-left: 0%;
+}
 .hide {
   display: none;
 }
