@@ -7,7 +7,10 @@ class DetalleS extends Component{
         this.state = {
            id: props.match.params.id,
            serie: [], 
-           generos: []
+           generos: [],
+           estadoinv: 's',
+           estado2: 'h',
+           esFavorito: false,
         }
     }
 
@@ -20,13 +23,67 @@ class DetalleS extends Component{
                 serie: data,
                 generos: data.genres
             })
+            let storage = localStorage.getItem('favoritos');
+            let storageParse = JSON.parse(storage);
+            let filtro = [];
 
+            if (storageParse && storageParse.length > 0){
+                filtro = storageParse.filter((e) => e.id === data.id);
+            }
+
+            if (filtro.length > 0) {
+                this.setState({
+                    estado2: 's',
+                    estadoinv: 'h',
+                    esFavorito: true,
+                })
+            }
         })
         .catch((error) =>{
             console.log(error)
             
         }) 
     }
+
+    agregarFav(){
+        let storage = localStorage.getItem('favoritos');
+        let storageParse = JSON.parse(storage);
+        if (storageParse && this.state.esFavorito === false) {
+            storageParse.push({"id": this.state.serie.id, "tipo": "tv"});
+            localStorage.setItem('favoritos', JSON.stringify(storageParse));
+        }
+        else {
+            localStorage.setItem('favoritos', JSON.stringify([{"id": this.state.serie.id, "tipo": "tv"}]));
+        }
+        this.setState({
+            estado2: 's',
+            estadoinv: 'h',
+            esFavorito: true,
+        })
+        {console.log(localStorage)}
+    }
+
+    sacarFav(){
+        this.setState({
+            estado2: 'h',
+            estadoinv: 's',
+            esFavorito: false,
+        })
+        let storage = localStorage.getItem('favoritos');
+        let storageParse = JSON.parse(storage);
+        if (storageParse && storageParse.length != 0) {
+            let filtro = storageParse.filter((e) => e.id !== this.state.serie.id);
+            localStorage.setItem('favoritos', JSON.stringify(filtro));
+            {console.log(localStorage)}
+        }
+
+        if (this.props.eliminarDeFavoritos) {
+            this.props.eliminarDeFavoritos(this.state.serie.id);
+        }
+
+    }
+
+
     render(){
     return(
         <>
@@ -40,7 +97,8 @@ class DetalleS extends Component{
             <ul>
                 {this.state.generos.map((genero)=> <li>{genero.name}</li>)}  
             </ul> 
-            <button>Favoritos</button>
+            <button className={this.state.estadoinv} onClick={() => this.agregarFav()}>🩶</button>
+            <button className={this.state.estado2} onClick={() => this.sacarFav()}>❤️</button>
 
             </article>}
       </>  
