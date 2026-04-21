@@ -1,5 +1,7 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
+import Popular from "../../components/Popular/Popular";
+import PopularSerie from "../../components/PopularSerie/PopularSerie";
 
 class ResultadoBusqueda extends Component {
     constructor(props) {
@@ -33,26 +35,23 @@ class ResultadoBusqueda extends Component {
     render() {
         return (
             <>
-                {this.state.cargando ? (
-                    <h1>Cargando resultados...</h1>
-                ) : (
-                    <section>
-                        {this.state.resultados.length > 0 ? (
-                            this.state.resultados.map((item) => (
-                                <article key={item.id} className="detalle">
-                                    <img 
-                                        src={`https://image.tmdb.org/t/p/w342/${item.poster_path}`} 
-                                        alt={item.title || item.name} />
-                                    <h2>{item.title || item.name}</h2>
-                                    <p>Rating: {item.vote_average}</p>
-                                    <p>Sinópsis: {item.overview}</p>
-                                </article>
-                            ))
+                {this.state.cargando ? <h1>Cargando resultados...</h1> :
+                <section className="speliculas">
+                    {
+                        this.state.resultados.length > 0 ? (
+                        this.state.resultados.map((item) =>
+                            this.state.tipo === "movie" ? (
+                            <Popular key={item.id} pelicula={item} />
+                            ) : (
+                            <PopularSerie key={item.id} serie={item} />
+                            )
+                        )
                         ) : (
-                            <h2>No se encontraron resultados para tu búsqueda</h2>
-                        )}
-                    </section>
-                )}
+                        <h2>No se encontraron resultados para tu búsqueda</h2>
+                        )
+                    }
+                </section>
+                }
             </>
         );
     }
