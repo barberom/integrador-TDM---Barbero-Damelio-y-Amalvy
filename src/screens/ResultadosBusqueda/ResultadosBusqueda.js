@@ -39,7 +39,7 @@ class ResultadoBusqueda extends Component {
                     <section>
                         {this.state.resultados.length > 0 ? (
                             this.state.resultados.map((item) => (
-                                <article key={item.id}>
+                                <article key={item.id} className="detalle">
                                     <img 
                                         src={`https://image.tmdb.org/t/p/w342/${item.poster_path}`} 
                                         alt={item.title || item.name} />
