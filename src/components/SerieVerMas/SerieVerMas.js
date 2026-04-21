@@ -43,8 +43,8 @@ class SerieVerMas extends Component{
     render(){
         return(
             <>
-                <section className="peliculas">
-                    <button onClick={()=>this.cargarMas()}>Cargar más</button>
+                <button className="cargarMas" onClick={()=>this.cargarMas()}>Cargar más</button>
+                <section className="speliculas">
                     {this.state.series == [] ? <h1>Cargando...</h1>: this.state.series.map((serie, idx) => <PopularSerie key = {(serie + idx)} serie={serie}/>)}
                 </section>
             </>

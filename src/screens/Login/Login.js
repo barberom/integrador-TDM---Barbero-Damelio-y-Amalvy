@@ -54,7 +54,7 @@ class Login extends Component {
                 <h2>Iniciar Sesión</h2>
                 <form onSubmit={(event) => this.evitarSubmit(event)}>
                     <div>
-                        <label>Email:</label>
+                        <label>Email: </label>
                         <input 
                             type="email" 
                             onChange={(event) => this.cambiarEmail(event)} 
@@ -62,7 +62,7 @@ class Login extends Component {
                         />
                     </div>
                     <div>
-                        <label>Contraseña:</label>
+                        <label>Contraseña: </label>
                         <input 
                             type="password" 
                             onChange={(event) => this.cambiarContraseña(event)} 

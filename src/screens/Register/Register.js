@@ -47,14 +47,19 @@ class Register extends Component {
 
     render() {
         return (
+            <section className="sRegister">
+            <h2>Crear Cuenta</h2>
             <form onSubmit={(event) => this.evitarSubmit(event)}>
-                <h2>Crear Cuenta</h2>
+                
+                <label for="email">Email:</label>
                 <input 
                     type="email" 
                     name="email" 
                     onChange={(event) => this.cambiarEmail(event)} 
                     value={this.state.email} 
                 />
+
+                <label for="contraseña">Contraseña:</label>
                 <input 
                     type="password" 
                     name="contraseña" 
@@ -63,6 +68,7 @@ class Register extends Component {
                 />
                 <button type="submit">Registrarme</button>
             </form>
+            </section>
         );
     }
 }
