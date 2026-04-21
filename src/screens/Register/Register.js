@@ -24,25 +24,32 @@ class Register extends Component {
         });}
 
     evitarSubmit(event) {
+        console.log("evitando submit");
         event.preventDefault();
-        const email = this.state.email;
-        const contraseña = this.state.contraseña;
+        
+        this.setState({ error: "" });
+        
+        let email = this.state.email;
+        let contraseña = this.state.contraseña;
+
         if (contraseña.length < 6) {
             this.setState({ error: "La contraseña debe tener al menos 6 caracteres" });
-        } else {
-            let usuariosStorage = localStorage.getItem("usuarios");
-            let usuarios = usuariosStorage ? JSON.parse(usuariosStorage) : [];
-
-            const existe = usuarios.find(user => user.email === email);
-
-            if (existe) {
-                this.setState({ error: "El email ya está en uso" });
-            } else {
-                usuarios.push({ email: email, contraseña: contraseña });
-                localStorage.setItem("usuarios", JSON.stringify(usuarios));
-                this.props.history.push("/login");
-            }
+            return;
         }
+
+        let usuariosStorage = localStorage.getItem("usuarios");
+        let usuarios = usuariosStorage ? JSON.parse(usuariosStorage) : [];
+
+        let repetidos = usuarios.filter(user => user.email === email);
+
+        if (repetidos.length > 0) {
+            this.setState({ error: "El email ya está en uso" });
+            return;
+        }
+            
+        usuarios.push({ email: email, contraseña: contraseña });
+        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+        this.props.history.push("/login");
     }
 
     render() {
@@ -50,16 +57,14 @@ class Register extends Component {
             <section className="sRegister">
             <h2>Crear Cuenta</h2>
             <form onSubmit={(event) => this.evitarSubmit(event)}>
-                
-                <label for="email">Email:</label>
+                <label>Email:</label>
                 <input 
                     type="email" 
                     name="email" 
                     onChange={(event) => this.cambiarEmail(event)} 
                     value={this.state.email} 
                 />
-
-                <label for="contraseña">Contraseña:</label>
+                <label>Contraseña:</label>
                 <input 
                     type="password" 
                     name="contraseña" 
@@ -68,6 +73,7 @@ class Register extends Component {
                 />
                 <button type="submit">Registrarme</button>
             </form>
+            {this.state.error !== "" ? <p>{this.state.error}</p> : null}
             </section>
         );
     }

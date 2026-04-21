@@ -71,6 +71,7 @@ class Login extends Component {
                     </div>
                     <button type="submit">Enviar</button>
                 </form>
+                {this.state.error !== "" ? <p>{this.state.error}</p> : null}
             </section>
         );
     }
