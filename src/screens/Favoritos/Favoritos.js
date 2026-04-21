@@ -72,10 +72,10 @@ class Favoritos extends Component {
                 ) : this.state.recuperado.length === 0 ? (
                     <p>No hay favoritos</p>
                 ) : (
-                    this.state.recuperado.map((objeto, idx) => {
+                    <section className='speliculas'>
+                    {this.state.recuperado.map((objeto, idx) => {
                         
                         if (objeto.seasons) {
-                            console.log("chupame el pito nahue")
                             return (
                                 <PopularSerie
                                     key={objeto.id}
@@ -95,7 +95,8 @@ class Favoritos extends Component {
                             );
                         }
 
-                    })
+                    })}
+                    </section>
                 )}
             </>
         )

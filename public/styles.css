@@ -41,6 +41,13 @@ nav {
   justify-content: space-between;
   border-radius: 6px;
   margin: 0 20px;
+  flex-wrap: wrap;
+}
+
+nav ul{
+  display: flex;
+  justify-content: space-between;
+  gap: 20%
 }
 
 .navbar,
@@ -107,14 +114,29 @@ section:nth-of-type(2) h2 {
 .spopular {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  margin: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2%;
 }
 
+.speliculas{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2%;
+}
 
+.cargarMas{
+  margin: 2%;
+  background-color: #0d6efd;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
 
 .popular {
-  width: 220px;
+  width: 20%;
 }
 
 .popular img {
@@ -157,7 +179,9 @@ section:nth-of-type(2) h2 {
   border-radius: 6px;
 }
 
-
+.sRegister{
+  
+}
 
 .hide {
   display: none;

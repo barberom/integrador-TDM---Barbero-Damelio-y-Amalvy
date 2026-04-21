@@ -44,8 +44,8 @@ class PeliVerMas extends Component{
     render(){
         return(
             <>
-                <section className="peliculas">
-                    <button onClick={()=>this.cargarMas()}>Cargar más</button>
+                <button className="cargarMas" onClick={()=>this.cargarMas()}>Cargar más</button>
+                <section className="speliculas">
                     {this.state.peliculas == [] ? <h1>Cargando...</h1>: this.state.peliculas.map((pelicula, idx) => <Popular key = {(pelicula + idx)} pelicula={pelicula}/>)}
                 </section>
             </>
