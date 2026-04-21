@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import Cookies from "universal-cookie";
+const cookies = new Cookies()
 
 class DetalleS extends Component{
 
@@ -8,7 +10,7 @@ class DetalleS extends Component{
            id: props.match.params.id,
            serie: [], 
            generos: [],
-           estadoinv: 's',
+           estadoinv: 'h',
            estado2: 'h',
            esFavorito: false,
         }
@@ -42,7 +44,9 @@ class DetalleS extends Component{
         .catch((error) =>{
             console.log(error)
             
-        }) 
+        })
+        
+        cookies.get('auth-usuario') ? this.setState({estadoinv: 's'}) : null
     }
 
     agregarFav(){

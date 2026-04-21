@@ -30,12 +30,12 @@ class Navbar extends Component {
                 <ul className="acceso">
                     {estaLogueado === undefined ? (
                         <>
-                            <li className="nav-item"><Link className="nav-link" to="/Favoritos">Favoritos</Link></li>
                             <li><Link className="nav-link" to="/Login">Login</Link></li>
                             <li><Link className="nav-link" to="/Register">Register</Link></li>
                         </>
                     ) : (
                         <>
+                            <li className="nav-item"><Link className="nav-link" to="/Favoritos">Favoritos</Link></li>
                             <li>
                                 {cookies.get("auth-usuario")}
                             </li>

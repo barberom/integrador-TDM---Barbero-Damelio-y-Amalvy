@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import { Link } from "react-router-dom";
 import "./Popular.css";
-
+import Cookies from "universal-cookie";
+const cookies = new Cookies()
 class Popular extends Component{
     constructor(props){
         super(props)
@@ -9,7 +10,7 @@ class Popular extends Component{
             descripcion: "mostrar",
             clase: "hide",
             detalle: "Ver más",
-            estadoinv: 's',
+            estadoinv: 'h',
             estado2: 'h',
             esFavorito: false,
         }
@@ -30,6 +31,7 @@ class Popular extends Component{
                 esFavorito: true,
             })
         }
+        cookies.get('auth-usuario') ? this.setState({estadoinv: 's'}) : null
     }
 
     verDescripcion(){
@@ -87,8 +89,6 @@ class Popular extends Component{
 
     }
 
-
-    
 
     render(){
         return(
