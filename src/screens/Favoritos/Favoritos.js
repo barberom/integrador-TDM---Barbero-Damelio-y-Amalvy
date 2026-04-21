@@ -78,6 +78,7 @@ class Favoritos extends Component {
                         if (objeto.seasons) {
                             return (
                                 <PopularSerie
+                                    fav='si'
                                     key={objeto.id}
                                     serie={objeto}
                                     eliminarDeFavoritos={this.eliminarDeFavoritos}
@@ -88,6 +89,7 @@ class Favoritos extends Component {
                             console.log(objeto)
                             return (
                                 <Popular
+                                    fav='si'
                                     key={objeto.id}
                                     pelicula={objeto}
                                     eliminarDeFavoritos={this.eliminarDeFavoritos}

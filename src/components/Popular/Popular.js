@@ -32,6 +32,7 @@ class Popular extends Component{
             })
         }
         cookies.get('auth-usuario') ? this.setState({estadoinv: 's'}) : null
+        this.props.fav === 'si'?  this.setState({estadoinv: 'h'}): null
     }
 
     verDescripcion(){
