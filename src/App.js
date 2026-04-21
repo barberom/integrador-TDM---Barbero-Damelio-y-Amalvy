@@ -16,6 +16,7 @@ import ResultadosBusqueda from "./screens/ResultadosBusqueda/ResultadosBusqueda"
 function App() {
   return (
       <>
+      <h1>UdeSA Movies</h1>
       <BrowserRouter>
       <Navbar/>
           <Switch>
