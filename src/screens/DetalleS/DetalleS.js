@@ -89,7 +89,7 @@ class DetalleS extends Component{
         <>
         {this.state.serie == [] ? <h1>Cargando...</h1>:<article>
             <img src= {`https://image.tmdb.org/t/p/w342/${this.state.serie.poster_path}`}/>
-            <h2>{this.state.serie.original_title}</h2>
+            <h2>{this.state.serie.original_name}</h2>
             <p>Rating: {this.state.serie.vote_average}</p>
             <p>Fecha de estreno: {this.state.serie.release_date}</p>
             <p>Sinópsis: {this.state.serie.overview}</p>
