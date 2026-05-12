@@ -1,56 +1,45 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
 import PopularSerie from "../PopularSerie/PopularSerie";
 
 
-class SerieVerMas extends Component{
-    constructor(){
-        super()
-        this.state = {
-            series: [],
-            siguientePag: 1
-        }
-    }
+function SerieVerMas(){
+    
+    const [series, setSeries] = useState([]);
+    const [siguientePag, setSiguientePag] = useState(1);
 
-    componentDidMount(){
+    useEffect(() => {
         fetch("https://api.themoviedb.org/3/tv/popular?api_key=1a700a291cf896745821e2c04ca0ecaa")
         .then((response) => response.json())
         .then((data) => {
+            setSeries(data.results);
+            setSiguientePag(data.page + 1);
             console.log(data)
-            this.setState({
-                series: data.results,
-                siguientePag: data.page + 1
-            })
         })
-        .then(console.log(this.state.siguientePag))
+        .then(console.log(siguientePag))
         .catch(error => console.log(error));
-    }
+    },[]);
 
-    cargarMas(){
-        fetch(`https://api.themoviedb.org/3/tv/popular?api_key=1a700a291cf896745821e2c04ca0ecaa&page=${this.state.siguientePag}`)
+    function cargarMas(){
+        fetch(`https://api.themoviedb.org/3/tv/popular?api_key=1a700a291cf896745821e2c04ca0ecaa&page=${siguientePag}`)
         .then((response)=>response.json())
         .then((data)=>{
             console.log(data)
-            this.setState({
-                series: this.state.series.concat(data.results),
-                siguientePag: data.page + 1
-            })
+            setSeries(series.concat(data.results));
+            setSiguientePag(data.page + 1);
         })
-        .then(console.log(this.state.series))
+        .then(console.log(series))
         .catch((error)=>console.log(error))
 
     }
 
-    render(){
         return(
             <>
-                <button className="cargarMas" onClick={()=>this.cargarMas()}>Cargar más</button>
+                <button className="cargarMas" onClick={()=>cargarMas()}>Cargar más</button>
                 <section className="speliculas">
-                    {this.state.series == [] ? <h1>Cargando...</h1>: this.state.series.map((serie, idx) => <PopularSerie key = {(serie + idx)} serie={serie}/>)}
+                    {series == [] ? <h1>Cargando...</h1>: series.map((serie, idx) => <PopularSerie key = {(serie + idx)} serie={serie}/>)}
                 </section>
             </>
         )
     }
-}
-
 
 export default SerieVerMas;
