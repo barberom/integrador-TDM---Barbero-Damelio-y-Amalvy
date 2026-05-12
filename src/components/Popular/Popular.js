@@ -1,111 +1,104 @@
-import React, {Component} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./Popular.css";
 import Cookies from "universal-cookie";
+import { useState, useEffect } from "react";
 const cookies = new Cookies()
-class Popular extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            descripcion: "mostrar",
-            clase: "hide",
-            detalle: "Ver más",
-            estadoinv: 'h',
-            estado2: 'h',
-            esFavorito: false,
-        }
-    }
+function Popular(props){
 
-    componentDidMount(){
+    const [descripcion, setDescripcion] = useState("mostrar")
+    const [clase, setClase] = useState("hide")
+    const [detalle, setDetalle] = useState("Ver más")
+    const [estadoinv, setEstadoInv] = useState('h')
+    const [estado2, setEstado2] = useState('h')
+    const [esFavorito, setEsFavorito] = useState(false)
+
+    useEffect(() => {
         let storage = localStorage.getItem('favoritos');
         let storageParse = JSON.parse(storage);
         let filtro = [];
         if ( storageParse && storageParse.length > 0){
-            filtro = storageParse.filter((e) => e.id === this.props.pelicula.id);
+            filtro = storageParse.filter((e) => e.id === props.pelicula.id);
         }
 
         if (filtro.length > 0) {
-            this.setState({
-                estado2: 's',
-                estadoinv: 'h',
-                esFavorito: true,
-            })
+            setEstado2('s')
+            setEstadoInv('h')
+            setEsFavorito(true)
         }
-        cookies.get('auth-usuario') ? this.setState({estadoinv: 's'}) : null
-        this.props.fav === 'si'?  this.setState({estadoinv: 'h'}): null
-    }
+        cookies.get('auth-usuario') ? setEstadoInv('s') : null
+        props.fav === 'si'?  setEstadoInv('h'): null
+    },[])
 
-    verDescripcion(){
-        if(this.state.descripcion == "mostrar"){
-            this.setState({
-                descripcion: "no mostrar",
-                clase: "show",
-                detalle: "Ver menos"
-            })
+    function verDescripcion(){
+        if(descripcion == "mostrar"){
+
+            setDescripcion("no mostrar")
+            setClase("show")
+            setDetalle("Ver menos")
+
         }
         else{
-            this.setState({
-                descripcion: "mostrar",
-                clase: "hide",
-                detalle: "Ver más"
-            })
+            setDescripcion("mostrar")
+            setClase("hide")
+            setDetalle("Ver más")
         }
     }
 
-    agregarFav(){
+    function agregarFav(){
         let storage = localStorage.getItem('favoritos');
         let storageParse = JSON.parse(storage);
-        if (storageParse && this.state.esFavorito === false) {
-            storageParse.push({"id": this.props.pelicula.id, "tipo": "movie"});
+        if (storageParse && esFavorito === false) {
+            storageParse.push({"id": props.pelicula.id, "tipo": "movie"});
             localStorage.setItem('favoritos', JSON.stringify(storageParse));
         }
         else {
-            localStorage.setItem('favoritos', JSON.stringify([{"id": this.props.pelicula.id, "tipo": "movie"}]));
+            localStorage.setItem('favoritos', JSON.stringify([{"id": props.pelicula.id, "tipo": "movie"}]));
         }
-        this.setState({
-            estado2: 's',
-            estadoinv: 'h',
-            esFavorito: true,
-        })
+        
+        setEstado2('s')
+        setEstadoInv('h')
+        setEsFavorito(true)
+
         {console.log(localStorage)}
     }
 
-    sacarFav(){
-        this.setState({
-            estado2: 'h',
-            estadoinv: 's',
-            esFavorito: false,
-        })
+    function sacarFav(){
+
+        setEstado2('h')
+        setEstadoInv('s')
+        setEsFavorito(false)
+
         let storage = localStorage.getItem('favoritos');
         let storageParse = JSON.parse(storage);
         if (storageParse && storageParse.length != 0) {
-            let filtro = storageParse.filter((e) => e.id !== this.props.pelicula.id);
+            let filtro = storageParse.filter((e) => e.id !== props.pelicula.id);
             localStorage.setItem('favoritos', JSON.stringify(filtro));
             {console.log(localStorage)}
         }
 
-        if (this.props.eliminarDeFavoritos) {
-            this.props.eliminarDeFavoritos(this.props.pelicula.id);
+        if (props.eliminarDeFavoritos) {
+            props.eliminarDeFavoritos(props.pelicula.id);
         }
 
     }
 
 
-    render(){
+    
         return(
             <article className='popular'>
-                <img src= {`https://image.tmdb.org/t/p/w342/${this.props.pelicula.poster_path}`}/>
-                <h2>{this.props.pelicula.title}</h2>
-                <p className={this.state.clase}>{this.props.pelicula.overview}</p>
+                <img src= {`https://image.tmdb.org/t/p/w342/${props.pelicula.poster_path}`}/>
+                <h2>{props.pelicula.title}</h2>
+                <p className={clase}>{props.pelicula.overview}</p>
                 <div className="botones-home">
-                    <button onClick={()=>this.verDescripcion()}>{this.state.detalle}</button>
-                    <Link to={`/detalleP/${this.props.pelicula.id}`}>Ir a detalle</Link>
-                    <button className={this.state.estadoinv} onClick={() => this.agregarFav()}>🩶</button>
-                    <button className={this.state.estado2} onClick={() => this.sacarFav()}>❤️</button>
+                    <button onClick={()=>verDescripcion()}>{detalle}</button>
+                    <Link to={`/detalleP/${props.pelicula.id}`}>Ir a detalle</Link>
+                    <button className={estadoinv} onClick={() => agregarFav()}>🩶</button>
+                    <button className={estado2} onClick={() => sacarFav()}>❤️</button>
                 </div>
             </article>
         )
     }
-}
+
 
 export default Popular
