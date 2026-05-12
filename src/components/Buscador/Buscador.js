@@ -1,54 +1,44 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 
-class Formulario extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            valor: "",
-            tipo: "movie"
-        };
+function Formulario(props){
+
+    const [valor, setValor] = useState("");
+    const [tipo, setTipo] = useState("movie");
+
+    function cambiarTipo(event) {
+        setTipo(event.target.value);
     }
 
-    cambiarTipo(event) {
-        this.setState({
-            tipo: event.target.value
-        });
+    function controlarCambios(event) {
+        setValor(event.target.value);
     }
 
-    controlarCambios(event) {
-        this.setState({
-            valor: event.target.value
-        });
-    }
-
-    evitarsubmit(event) {
+    function evitarsubmit(event) {
         event.preventDefault();
-        if (this.state.valor !== "") {
-            this.props.history.push(`/Resultados/${this.state.tipo}/${this.state.valor}`);
+        if (valor !== "") {
+            props.history.push(`/Resultados/${tipo}/${valor}`);
         }
     }
 
-    render() {
-        return (
-            <form onSubmit={(event) => this.evitarsubmit(event)}>
-                <label>Buscar:</label>
-                <input 
-                    type="text" 
-                    onChange={(event) => this.controlarCambios(event)} 
-                    value={this.state.valor} 
-                />
-                <select 
-                    onChange={(event) => this.cambiarTipo(event)} 
-                    value={this.state.tipo}
-                >
-                    <option value="movie">Películas</option>
-                    <option value="tv">Series</option>
-                </select>
-                <button type="submit">Buscar</button>
-            </form>
-        );
-    }
+    return (
+        <form onSubmit={(event) => evitarsubmit(event)}>
+            <label>Buscar:</label>
+            <input 
+                type="text" 
+                onChange={(event) => controlarCambios(event)} 
+                value={valor} 
+            />
+            <select 
+                onChange={(event) => cambiarTipo(event)} 
+                value={tipo}
+            >
+                <option value="movie">Películas</option>
+                <option value="tv">Series</option>
+            </select>
+            <button type="submit">Buscar</button>
+        </form>
+    );
 }
 
 export default withRouter(Formulario);

@@ -1,39 +1,29 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
-class Register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: "",
-            contraseña: "",
-            error: ""
-        };
+function Register(props) {
+
+    const [email, setEmail] = useState("");
+    const [contraseña, setContraseña] = useState("");
+    const [error, setError] = useState("");
+
+    function cambiarEmail(event) {
+        setEmail(event.target.value);
     }
 
-
-
-    cambiarEmail(event) {
-        this.setState({
-            email: event.target.value
-        });
+    function cambiarContraseña(event) {
+        setContraseña(event.target.value);
     }
 
-    cambiarContraseña(event) {
-        this.setState({
-            contraseña: event.target.value
-        });}
-
-    evitarSubmit(event) {
+    function evitarSubmit(event) {
         console.log("evitando submit");
         event.preventDefault();
+        setError("");
         
-        this.setState({ error: "" });
-        
-        let email = this.state.email;
-        let contraseña = this.state.contraseña;
+        let email = email;
+        let contraseña = contraseña;
 
         if (contraseña.length < 6) {
-            this.setState({ error: "La contraseña debe tener al menos 6 caracteres" });
+            setError("La contraseña debe tener al menos 6 caracteres");
             return;
         }
 
@@ -43,40 +33,38 @@ class Register extends Component {
         let repetidos = usuarios.filter(user => user.email === email);
 
         if (repetidos.length > 0) {
-            this.setState({ error: "El email ya está en uso" });
+            setError("El email ya está en uso");
             return;
         }
             
         usuarios.push({ email: email, contraseña: contraseña });
         localStorage.setItem("usuarios", JSON.stringify(usuarios));
-        this.props.history.push("/login");
+        props.history.push("/login");
     }
 
-    render() {
         return (
             <section className="sRegister">
             <h2>Crear Cuenta</h2>
-            <form onSubmit={(event) => this.evitarSubmit(event)}>
+            <form onSubmit={(event) => evitarSubmit(event)}>
                 <label>Email:</label>
                 <input 
                     type="email" 
                     name="email" 
-                    onChange={(event) => this.cambiarEmail(event)} 
-                    value={this.state.email} 
+                    onChange={(event) => cambiarEmail(event)} 
+                    value={email} 
                 />
                 <label>Contraseña:</label>
                 <input 
                     type="password" 
                     name="contraseña" 
-                    onChange={(event) => this.cambiarContraseña(event)} 
-                    value={this.state.contraseña} 
+                    onChange={(event) => cambiarContraseña(event)} 
+                    value={contraseña} 
                 />
                 <button type="submit">Registrarme</button>
             </form>
-            {this.state.error !== "" ? <p>{this.state.error}</p> : null}
+            {error !== "" ? <p>{error}</p> : null}
             </section>
         );
     }
-}
 
 export default Register;
