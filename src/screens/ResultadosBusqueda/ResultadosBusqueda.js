@@ -49,31 +49,6 @@ function ResultadoBusqueda(props) {
             )}
         </>
     );
-=======
-    render() {
-        return (
-            <>
-                {this.state.cargando ? <h1>Cargando resultados...</h1> :
-                <section className="speliculas">
-                    {
-                        this.state.resultados.length > 0 ? (
-                        this.state.resultados.map((item) =>
-                            this.state.tipo === "movie" ? (
-                            <Popular key={item.id} pelicula={item} />
-                            ) : (
-                            <PopularSerie key={item.id} serie={item} />
-                            )
-                        )
-                        ) : (
-                        <h2>No se encontraron resultados para tu búsqueda</h2>
-                        )
-                    }
-                </section>
-                }
-            </>
-        );
-    }
->>>>>>> 372d3f05c692359a0d8e9baa5b2e5d672feb522d
 }
 
 export default withRouter(ResultadoBusqueda);
